@@ -1,0 +1,35 @@
+¿Qué es React?
+
+React es una librería creada por Facebook, para crear las UI de las aplicaciones web basadas en componentes.
+
+
+Características
+
+	Los datos fluyen en un sentido desde el primer al último componente
+	Usa un algoritmo para detectar cambios y solo aplicar esas modificaciones a la UI
+	Utiliza JS para crear componentes pero para facilitar esto extendieron el lenguaje creando JSX
+	Permite generar cualquier tipo de UI como web, mobile, canvas, televisores, terminales, etc.
+	Propone usar programación funcional y manejar estructuras de datos inmutables.
+
+
+Virtual DOM
+
+Virtual DOM: Representación en forma de árbol de objetos y componentes del UI
+
+Algoritmo de Diferencias: Se encarga de evaluar las diferencias entre lo que hay actual y lo nuevo.
+
+Importante
+
+Los componente de React empiezan con letra MAYUS, mientras que los elementos nativos de HTML empiezan con letra MINUS.
+
+
+Creación de componentes
+
+Debemos pensar nuestra aplicación como un conjunto de componentes, que siguen la filosofía de separación de responsabilidades.
+En los componentes de react, todo es JS
+
+Para crear un componente podemos:
+	Crear un componente puro con una función
+	Usar class y extender desde React.Component
+	Usar class y extender desde React.PureComponent
+	Usar React.createClass()
