@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script type="text/babel">
+		function Hola(props) {
+			const name = props.name;
+
+			return (
+				<h1 id="Title">
+				Hola {name}
+				</h1>
+				);
+		}
+		class Micomponente extends React.Component {
+			constructor(props) {
+				//con super(props); le pasamos los objetos a la clase de arriba, Micomponente
+				super(props);
+
+				this.state = {
+					count: 0,
+				};
+				//Siempre hay que hacer el bind en el constructor de la clase, nunca directamente en el render
+				this.handleClick = this.handleClick.bind(this);
+			}
+
+			handleClick() {
+				this.setState({
+					count: this.state.count + 1,
+				});
+			}
+			
+			render() {
+				const name = this.props.name;
+				return (
+					<h1 id="Title" onClick={this.handleClick}>
+					 Hola {name} {this.state.count}
+					</h1>
+				);
+			}
+		}
+
+		//Esta opción para crer componentes esta en desuso, hay cosas que solo se pueden hacer con esto
+		//React.createClass, hace binds de todos los objetos del DOM, no hay que hacerlos aparte.
+		const OtriComponente = React.createClass({
+			getInitialState() {
+				return {
+					count: 0,
+				};
+			},
+			handleClick() {
+				this.setState({
+					count: this.state.count + 1,
+				});
+			},
+			render() {
+				const name = this.props.name;
+				return (
+					<h1 id="Title" onClick={this.handleClick}>
+					 Hola {name} {this.state.count}
+					</h1>
+				);
+			}
+		})
+
+		ReactDOM.render(
+			<OtriComponente name="Sergio" />, 
+			document.getElementById('app')
+			);
+	</script> 
+</body>
+</html>

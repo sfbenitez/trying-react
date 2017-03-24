@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script type="text/babel">
+		//Componentes puros, utilizados para crear partes dela UI, se utilizan las funciones.
+		function Hola(props) {
+			return (
+				<h1 id="Title" onClick={props.onClick}>
+				Hola {props.name} {props.count}
+				</h1>
+				);
+		}
+		//Contenedores, parte lógica de la app, no debe tener UI.
+		class Micomponente extends React.Component {
+			constructor(props) {
+				//con super(props); le pasamos los objetos a la clase de arriba, Micomponente
+				super(props);
+
+				this.state = {
+					count: 0,
+				};
+				//Siempre hay que hacer el bind en el constructor de la clase, nunca directamente en el render
+				this.handleClick = this.handleClick.bind(this);
+			}
+
+			handleClick() {
+				this.setState({
+					count: this.state.count + 1,
+				});
+			}
+			
+			render() {
+				return (
+					<Hola 
+					name={this.props.name}
+					count={this.state.count}
+					onClick={this.handleClick}
+					/>
+				);
+			}
+		}
+		//render final, Micomponente Renderiza Hola, y Hola renderiza el html
+		ReactDOM.render(
+			<Micomponente name="Sergio" />, 
+			document.getElementById('app')
+			);
+	</script> 
+</body>
+</html>

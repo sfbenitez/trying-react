@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script>
+		//Creamos el componente con una función, la forma mas simple. Props: objetos que queremos pasarle al componente. `Hola ${name}` templet literal, lo mismo que "Hola " + name 
+		function Hola(props) {
+			const name = props.name;
+			//React.DOM.h1({atributos de h1 ej. id: 'Title' seprados por comas}, valor de h1(el texto que  se va a mostrar))
+			return React.DOM.h1({
+				id: 'Title',
+			}, `Hola ${name}`);
+		}
+		// React.createElement crea el elemento llamado Hola
+		const hola = React.createElement(Hola,	 {
+			name: 'Sergio', 
+		});
+
+		ReactDOM.render(
+			hola, 
+			document.getElementById('app')
+			);
+
+		setTimeout(
+			//Función anónima () => 
+			() => {
+				ReactDOM.render(
+					React.createElement(Hola, { name: 'Sergio!' }),
+					document.getElementById('app')
+					);
+			},
+			1000
+			);
+
+	</script> 
+</body>
+</html>
