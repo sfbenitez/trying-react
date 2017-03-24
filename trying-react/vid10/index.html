@@ -13,7 +13,7 @@
 		//Componentes puros, utilizados para crear partes dela UI, se utilizan las funciones.
 		function Hola(props) {
 			return (
-				<h1 id="Title" onClick={props.onClick}>
+				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
 				Hola {props.name} {props.count}
 				</h1>
 				);
@@ -70,6 +70,10 @@
 					count: this.state.count + 1,
 				});
 			}
+
+			handleMouseEnter(event) {
+				console.log(event.target);
+			}
 			
 			render() {
 				return (
@@ -77,6 +81,7 @@
 					name={this.props.name}
 					count={this.state.count}
 					onClick={this.handleClick}
+					onMouseEnter={this.handleMouseEnter}
 					/>
 				);
 			}
