@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script type="text/babel">
+		//Componentes puros, utilizados para crear partes dela UI, se utilizan las funciones.
+		function Hola(props, context) {
+			return (
+				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
+				Hola {props.name} {context.count}
+				</h1>
+				);j
+		}
+
+		Hola.contextTypes = {
+			count: React.PropTypes.number,
+		}
+
+		//Contenedores, parte lógica de la app, no debe tener UI.
+		class Micomponente extends React.Component {
+			//Ciclos de vida del componente
+			//Montado
+			constructor(props) {
+				//con super(props); le pasamos los objetos a la clase de arriba, Micomponente
+				super(props);
+
+				this.state = {
+					count: 0,
+				};
+				//Siempre hay que hacer el bind en el constructor de la clase, nunca directamente en el render
+				this.handleClick = this.handleClick.bind(this);
+			}
+
+			getChildContext(){
+				return {
+					count: this.state.count,
+				};
+
+			}
+
+			componentWillMount() {
+				console.log('el componente se va a montar');
+			}
+
+			componentDidMount() {
+				document.addEventListener('click', this.handleClick);
+			}
+
+			//Actualizacion
+			/*componentWillReceiveProps(nextProps) {
+				this.setState({
+					count: this.state.count * 2,
+				});
+			}*/
+			shouldComponentUpdate(nextProps, nextState) {
+				if (nextState.count !== this.state.count) return true;
+				return false;
+			}
+
+			componentWillUpdate() {
+				console.log('el componente se va a actualizar')
+			}
+
+			componentDidUpdate() {
+				console.log('el componente se actualizó')
+			}
+
+			//desmontado
+			componentWillUnmount() {
+				document.removeEventListener('click', this.handleClick);
+			}
+
+			handleClick() {
+				this.setState({
+					count: this.state.count + 1,
+				});
+			}
+
+			handleMouseEnter(event) {
+				console.log(event);
+			}
+			
+			render() {
+				return (
+					<Hola 
+					name={this.props.name}
+					count={this.state.count}
+					onClick={this.handleClick}
+					onMouseEnter={this.handleMouseEnter}
+					/>
+				);
+			}
+		}
+		
+		Micomponente.childContextTypes = {
+			count: React.PropTypes.number,
+		};
+
+		//render final, Micomponente Renderiza Hola, y Hola renderiza el html
+		ReactDOM.render(
+			<Micomponente name="Sergio" />, 
+			document.getElementById('app')
+			);
+	</script> 
+</body>
+</html>
