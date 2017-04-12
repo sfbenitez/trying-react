@@ -1,9 +1,9 @@
 module.exports = {
-	entry: './source/server.js'
+	entry: './source/server.js',
 	output: {
 		filename: 'index.js',
-		path: '.built/server'
-	}
+		path: __dirname + '/../built/server'
+	},
 	module: {
 		loaders: [
 			{
@@ -12,7 +12,7 @@ module.exports = {
 			},
 			{
 				test: /\.jsx?$/,
-				loader: 'babel',
+				loader: 'babel-loader',
 				exclude: /(node_modules)/,
 				query: {
 					presets: ['latest-minimal', 'react']
@@ -20,5 +20,5 @@ module.exports = {
 			}
 		]
 	},
-	target: 'nodejs',
+	target: 'node',
 }
